@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace MarsRover;
 
 public class MarsRoverShould
@@ -7,7 +9,8 @@ public class MarsRoverShould
     public MarsRoverShould()
     {
         var grid = new Grid(10, 10);
-        _marsRover = new MarsRover(grid);
+        var compass = new Compass();
+        _marsRover = new MarsRover(grid, compass);
     }
 
     [Theory]
