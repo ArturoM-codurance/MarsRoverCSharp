@@ -2,25 +2,27 @@ namespace MarsRover;
 
 public class Compass
 {
-    public string _orientation = "N";
+    public static readonly Compass NORTH = new Compass("N", "W", "E");
+    public static readonly Compass EAST   = new Compass("E", "N", "S");
+    public static readonly Compass SOUTH   = new Compass("S", "E", "W");
+    public static readonly Compass WEST    = new Compass("W", "S", "N");
 
-    public Compass()
+    public static IEnumerable<Compass> Values
     {
+        get
+        {
+            yield return NORTH;
+            yield return EAST;
+            yield return SOUTH;
+            yield return WEST;
+        }
     }
 
-    public void RotateLeft()
-    {
-        if (_orientation.Equals("W")) _orientation = "S";
-        else if (_orientation.Equals("S")) _orientation = "E";
-        else if (_orientation.Equals("E")) _orientation = "N";
-        else if (_orientation.Equals("N")) _orientation = "W";
-    }
+    public string Value   { get; private set; }
+    public string Left   { get; private set; }
+    public string Right   { get; private set; }
 
-    public void RotateRight()
-    {
-        if (_orientation.Equals("W")) _orientation = "N";
-        else if (_orientation.Equals("S")) _orientation = "W";
-        else if (_orientation.Equals("E")) _orientation = "S";
-        else if (_orientation.Equals("N")) _orientation = "E";
-    }
+    Compass(string name, string left, string right) => 
+        (Value, Left, Right) = (name, left, right);
+
 }

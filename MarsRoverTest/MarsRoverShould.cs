@@ -8,9 +8,9 @@ public class MarsRoverShould
 
     public MarsRoverShould()
     {
-        var grid = new Grid(10, 10);
-        var compass = new Compass();
-        _marsRover = new MarsRover(grid, compass);
+        var orientation = new Orientation();
+        var grid = new Grid(10, 10, orientation);
+        _marsRover = new MarsRover(grid, orientation);
     }
 
     [Theory]
