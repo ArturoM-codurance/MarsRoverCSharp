@@ -21,7 +21,7 @@ public class MarsRoverShould
     [InlineData("RRRR", "0:0:N")]
     public void rotate_right(string commands, string output)
     {
-        Assert.Equal(output, _marsRover.Execute(commands));
+        Assert.Equal(output, _marsRover.Move(commands));
     }
 
     [Theory]
@@ -31,7 +31,7 @@ public class MarsRoverShould
     [InlineData("LLLL", "0:0:N")]
     public void rotate_left(string commands, string output)
     {
-        Assert.Equal(output, _marsRover.Execute(commands));
+        Assert.Equal(output, _marsRover.Move(commands));
     }
 
     [Theory]
@@ -39,7 +39,7 @@ public class MarsRoverShould
     [InlineData("LRLLLR", "0:0:S")]
     public void rotate_both_directions(string commands, string output)
     {
-        Assert.Equal(output, _marsRover.Execute(commands));
+        Assert.Equal(output, _marsRover.Move(commands));
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class MarsRoverShould
     [InlineData("RMMMLLM", "0:2:W")]
     public void move_vertically(string commands, string output)
     {
-        Assert.Equal(output, _marsRover.Execute(commands));
+        Assert.Equal(output, _marsRover.Move(commands));
     }
 
     [Theory]
@@ -59,6 +59,6 @@ public class MarsRoverShould
     [InlineData("RRM", "9:0:S")]
     public void use_grid(string commands, string output)
     {
-        Assert.Equal(output, _marsRover.Execute(commands));
+        Assert.Equal(output, _marsRover.Move(commands));
     }
 }
