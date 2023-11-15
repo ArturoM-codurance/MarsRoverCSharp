@@ -1,3 +1,5 @@
+using System;
+
 namespace MarsRover;
 
 public class MarsRover
@@ -16,11 +18,19 @@ public class MarsRover
     {
         foreach (var command in commands)
         {
-            _orientation.Execute(command);
-            _grid.Execute(command);
+            var commandHandler = CreateCommandFactory(command);
+            commandHandler.Execute(command);
         }
 
         return _grid.XCoordinate + ":" + _grid.YCoordinate + ":" + _orientation.Direction;
+    }
+
+    private IRoverMovility CreateCommandFactory(char command)
+    {
+        if(command == 'M') return new Move(_orientation, _grid);
+        if(command == 'L') return new TurnLeft(_orientation);
+        if(command == 'R') return new TurnRight(_orientation);
+        throw new InvalidProgramException();
     }
 }
 
@@ -34,4 +44,5 @@ public class MarsRover
 // moveCommand.Execute(_grid, _orientation);
 // turnLeftCommand.Execute(_grid, _orientation);
 //
-// -chain of responsibility pattern-
+//
+// - chain of responsibility pattern -
