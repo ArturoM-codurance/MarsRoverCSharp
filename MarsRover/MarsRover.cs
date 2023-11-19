@@ -14,7 +14,7 @@ public class MarsRover
         _orientation = orientation;
     }
 
-    public string Move(string commands)
+    public string HandleCommands(string commands)
     {
         foreach (var command in commands)
         {
