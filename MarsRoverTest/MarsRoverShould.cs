@@ -9,7 +9,7 @@ public class MarsRoverShould
     public MarsRoverShould()
     {
         var orientation = new Orientation();
-        var grid = new Grid(10, 10, orientation);
+        var grid = new Grid(10, 10);
         _marsRover = new MarsRover(grid, orientation);
     }
 
