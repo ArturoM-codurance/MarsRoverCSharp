@@ -14,23 +14,36 @@ public class MarsRover
         _orientation = orientation;
     }
 
-    public string HandleCommands(string commands)
+    public string Execute(string commands)
     {
         foreach (var command in commands)
         {
-            var commandHandler = CreateCommandFactory(command);
-            commandHandler.Execute(command);
+            var handlers = CreateHandlers();
+            
+            handlers.First().Handle(command);
         }
 
         return _grid.XCoordinate + ":" + _grid.YCoordinate + ":" + _orientation.Direction;
     }
 
-    private IRoverMovility CreateCommandFactory(char command)
+    private IEnumerable<IHandlerMovility> CreateHandlers()
     {
-        if(command == 'M') return new Move(_orientation, _grid);
-        if(command == 'L') return new TurnLeft(_orientation);
-        if(command == 'R') return new TurnRight(_orientation);
-        throw new InvalidProgramException();
+        var handlerList = new List<IHandlerMovility>();
+        var turnLeftHandler = new TurnLeft(_orientation);
+        var turnRightHandler = new TurnRight(_orientation);
+        var moveHandler = new Move(_orientation, _grid);
+        
+        //Set the chain of Responsibility
+        turnLeftHandler.SetNext(turnRightHandler);
+        turnRightHandler.SetNext(moveHandler);
+        
+        handlerList.AddRange(new List<IHandlerMovility>()
+        {
+            turnLeftHandler,
+            turnRightHandler,
+            moveHandler
+        });
+        return handlerList;
     }
 }
 

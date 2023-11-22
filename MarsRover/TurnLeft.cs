@@ -1,6 +1,6 @@
 namespace MarsRover;
 
-public class TurnLeft : IRoverMovility
+public class TurnLeft : BasicHandler
 {
     private Orientation _orientation;
 
@@ -9,7 +9,7 @@ public class TurnLeft : IRoverMovility
         _orientation = orientation;
     }
 
-    public void Execute(char command)
+    public override void Handle(char command)
     {
         if (command == 'L')
         {
@@ -22,5 +22,10 @@ public class TurnLeft : IRoverMovility
                 }
             }
         }
+        else
+        {
+            base.Handle(command);
+        }
     }
+
 }

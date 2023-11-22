@@ -1,6 +1,6 @@
 namespace MarsRover;
 
-public class Move : IRoverMovility
+public class Move : BasicHandler
 {
     private Orientation _orientation;
     private Grid _grid;
@@ -11,13 +11,8 @@ public class Move : IRoverMovility
         _grid = grid;
     }
 
-    public void Execute(char command)
+    public override void Handle(char command)
     {
-        var turnLeft = new TurnLeft(_orientation);
-        var turnRight = new TurnRight(_orientation);
-        turnLeft.Execute(command);
-        turnRight.Execute(command);
-        
         if ('M' == command)
         {
             if (_orientation.Direction.Equals("N"))
@@ -43,6 +38,10 @@ public class Move : IRoverMovility
                 _grid.YCoordinate  -= 1;
                 if (_grid.YCoordinate  < 0) _grid.YCoordinate  = _grid.Height - 1;
             }
+        }
+        else
+        {
+            base.Handle(command);
         }
     }
 }
